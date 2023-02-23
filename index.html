@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Andrews Chem Study 3</title>
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+	<body>
+		<header id="correct">0</header>
+		<p id="text"></p>
+		<input type="text" id="textField" /><button type="submit">Enter</button>
+		<script>
+			const QUESTIONS1 = [
+				"Oregon",
+				"Pennsylvania",
+				"Rhode Island",
+				"South Carolina",
+				"South Dakota",
+				"Tennessee",
+				"Texas",
+				"Utah",
+				"Vermont",
+				"Virginia",
+				"Washington",
+				"West Virginia",
+				"Wisconsin",
+				"Wyoming",
+			];
+			const QUESTIONS2 = [
+				"Salem",
+				"Harrisburg",
+				"Providence",
+				"Columbia",
+				"Pierre",
+				"Nashville",
+				"Austin",
+				"Salt Lake City",
+				"Montpelier",
+				"Richmond",
+				"Olympia",
+				"Charleston",
+				"Madison",
+				"Cheyenne",
+			];
+			const text = document.querySelector("p");
+			const textField = document.querySelector("input");
+			const button = document.querySelector("button");
+			var randomQuestion = 0;
+			var randomNum = 0;
+			window.onload = askQuestion;
+			function askQuestion() {
+				randomQuestion = Math.floor(Math.random() * 2);
+				randomNum = Math.floor(Math.random() * QUESTIONS1.length);
+				if (randomQuestion == 0) {
+					text.textContent = QUESTIONS1[randomNum];
+				} else {
+					text.textContent = QUESTIONS2[randomNum];
+				}
+			}
+			button.addEventListener("click", answerQuestion);
+			document.addEventListener("keydown", (keypress) => {
+				if (keypress.key == "Enter") {
+					answerQuestion();
+				}
+			});
+			function answerQuestion() {
+				if (randomQuestion == 0) {
+					if (textField.value != QUESTIONS2[randomNum]) {
+						const correct = document.querySelector("#correct");
+						correct.innerHTML = "0";
+
+						alert("Wrong the answer is " + QUESTIONS2[randomNum]);
+					}
+					textField.value = "";
+					askQuestion();
+				} else {
+					if (
+						textField.value.toLowerCase() != QUESTIONS1[randomNum].toLowerCase()
+					) {
+						alert("Wrong the answer is " + QUESTIONS1[randomNum]);
+						const correct = document.querySelector("#correct");
+						correct.innerHTML = "0";
+					} else {
+						const correct = document.querySelector("#correct");
+						let num = Number(correct.innerHTML);
+						console.log(num);
+						num++;
+						console.log(num);
+						correct.innerHTML = String(num);
+						console.log(correct.innerHTML);
+					}
+					textField.value = "";
+					askQuestion();
+				}
+			}
+		</script>
+	</body>
+</html>
